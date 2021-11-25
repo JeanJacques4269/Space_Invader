@@ -24,9 +24,13 @@ blocksize = HEIGHT // 8  # arbitrary size that depends on the screen size
 
 x, y = pygame.image.load("assets/s.png").get_size()
 img_spaceship = pygame.transform.smoothscale(pygame.image.load("assets/s.png"), (blocksize, int(blocksize * y / x)))
+size_spaceship = img_spaceship.get_size()
 
 x, y = pygame.image.load("assets/enemy.png").get_size()
 img_ennemy = pygame.transform.smoothscale(pygame.image.load("assets/enemy.png"), (blocksize, int(blocksize * y / x)))
 
+x, y = pygame.image.load("assets/bullet.png").get_size()
+img_missile = pygame.transform.smoothscale(pygame.image.load("assets/bullet.png"),
+                                           (int(x / y * int(size_spaceship[0] / 2)), int(size_spaceship[0] / 2)))
 # game
 FPS = 60

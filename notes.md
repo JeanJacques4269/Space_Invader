@@ -132,7 +132,99 @@ if I want him to move at 10 block per second, I do this:
 
 That is a very good way in my opinion to make the speed not change when you change device or FPS
 
-## Firing and killing ennemies
+## Death and end of game
+
+Here is a basic check fonction to see wether the game is lost
+
+```python
+
+def check(self):
+    """ we check for ennemies being arrived at the bottom"""
+    for ennemy in self.all_ennemies:
+        if ennemy.pos.y > HEIGHT - img_spaceship.get_size()[0]:
+            self.lose()
+        return False
 
 
+def lose(self):
+    self.game_is_on = False
+```
+
+Now when an ennemy arrives at the spaceship level, we close the window.
+
+Let's make a way to kill those ennemies.
+
+## Firing missiles
+
+We create a basic missile class:
+
+```python
+
+class Missile(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+
+        self.surface = img_missile
+        self.rect = self.surface.get_rect()
+
+        self.speed = 5
+        self.pos = vec(x, y - size_spaceship[0])
+        self.vel = (0, self.speed)
+
+    def update_pos(self):
+        self.pos -= self.vel
+        self.rect.midbottom = self.pos
+```
+
+We add a line in the Spaceship class to handle the option "fire"
+
+```python
+
+def move(self, info):
+    if info == "right":
+        self.vel = (self.speed, 0)
+    elif info == "left":
+        self.vel = (-self.speed, 0)
+    elif info == "fire":
+        if self.firing_state:
+            self.fire()
+
+
+def fire(self):
+    self.fired_missiles.add(Missile(self.pos.x, self.pos.y))
+```
+
+Every time a new bullet is fired, we had A bullet/missile object to a group **instanciated in Spaceship**
+
+`self.fired_missiles = pygame.sprite.Group()
+`
+
+### collision detection
+
+In our Game file we had a fonction in our mainloop that will check if a missile is colliding with an ennemy. If so we
+destroy both.
+
+```python
+
+def check_bullet_collision(self):
+    for bullet in self.spaceship.fired_missiles:
+        hits = pygame.sprite.spritecollide(bullet, self.all_ennemies, True)
+        if hits:
+            bullet.kill()
+```
+
+The argument `True` in the builtin `spritecollide` fonction removes any ennemy that collides with the bullet. Then we
+remove the bullet if it hit something.
+
+We add the code to make the firing available every 1 seconds
+
+```python
+
+if keys[pygame.K_SPACE] and time_elapsed_since_last_bullet_fired > 1000:
+    time_elapsed_since_last_bullet_fired = 0
+    self.spaceship.move("fire")
+```
+
+Every basic feature of the game is now ready ! You can now midify every parametre how you want, you can add music,
+score, pause menu. You can also change the speed of your bullets or give a random speed to the ennemies when they spawn.
 
