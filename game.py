@@ -36,11 +36,11 @@ class Game:
                 self.spaceship.move("left")
             if keys[pygame.K_RIGHT]:
                 self.spaceship.move("right")
-            if keys[pygame.K_SPACE] and time_elapsed_since_last_bullet_fired > 1000:
+            if keys[pygame.K_SPACE] and time_elapsed_since_last_bullet_fired > 500:
                 time_elapsed_since_last_bullet_fired = 0
                 self.spaceship.move("fire")
 
-            if time_elapsed_since_last_ennemy_spawn > 1000:  # in milliseconds
+            if time_elapsed_since_last_ennemy_spawn > 2000:  # in milliseconds
                 self.all_ennemies.add(create_ennemy())
                 time_elapsed_since_last_ennemy_spawn = 0
 

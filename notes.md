@@ -228,3 +228,5 @@ if keys[pygame.K_SPACE] and time_elapsed_since_last_bullet_fired > 1000:
 Every basic feature of the game is now ready ! You can now midify every parametre how you want, you can add music,
 score, pause menu. You can also change the speed of your bullets or give a random speed to the ennemies when they spawn.
 
+If you want to add a competitive dimension to the game you could make the ennemies spawn quicker with time. That would
+be a good exercise !

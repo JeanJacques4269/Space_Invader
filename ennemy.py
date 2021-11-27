@@ -15,11 +15,11 @@ class Ennemy(pygame.sprite.Sprite):
 
     def update_pos(self):
         self.pos += self.vel
-        self.rect.midbottom = self.pos
+        self.rect.bottomleft = self.pos
 
 
 def create_ennemy(x=0):
     if x == 0:
-        return Ennemy(random.randint(0, WIDTH))
+        return Ennemy(random.randint(0, WIDTH - size_spaceship[0]))
     else:
         return Ennemy(x)
