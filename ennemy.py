@@ -9,7 +9,7 @@ class Ennemy(pygame.sprite.Sprite):
         self.surface = img_ennemy  # instantiate image to display
         self.rect = self.surface.get_rect()  # instantiate position
 
-        self.speed = 1
+        self.speed = random.randint(0, 15) / 10 + 0.5
         self.pos = vec(x, 0)  # spawns on top somewhere on the x axis
         self.vel = (0, self.speed)
 
